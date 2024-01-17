@@ -45,13 +45,26 @@ public class CatApp {
 				}
 				break;
 			case 3:
-				System.out.print("***結果***");
-				for (Cat c : cats) {
-					System.out.printf("%s[%s](%d)\n", c.name, c.type, c.love);
-				}
-				System.out.println("また遊んでね。おしまい");
-				return;
+				System.out.println("***結果***");
+				//並び替え（親密度高い順）
+				for (int i = 0; i < cats.size() - 1; i++) {
+					for (int j = i + 1; j < cats.size(); j++) {//二重for文
+						// 右側の数字が大きい場合
+						if (cats.get(i).love < cats.get(j).love) {
+							Cat temp = cats.get(i);//cats.get(i)をtempに避難させる
+							cats.set(i, cats.get(j));//配列と違いリストはそのまま代入ができない。テキストp613参照
+							cats.set(j, temp);//避難させたtempをｊに代入
+						}
+					}
 
+					//表示
+					for (Cat c : cats) {
+						System.out.printf("%s[%s](%d)\n", c.name, c.type, c.love);
+					}
+					System.out.println("また遊んでね。おしまい");
+					return;
+
+				}
 			}
 		}
 	}
